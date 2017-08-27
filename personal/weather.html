@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>personal</title>
+
+  
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Scope One' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Shanti' rel='stylesheet'>
+
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script language="javascript" type="text/javascript" src="background.js"></script>
+
+</head>
+
+<body>
+  <div id=slider></div>
+  <title>Yang Tang</title>
+  <div class="header-margin">
+  <nav>
+        <ul class="ulu">
+            <li class="nav-item"><a href="index.html" ><b>About</b></a></li>
+            <li class="nav-item"><a href="blog.html" ><b>Blog</b></a></li>
+            
+        </ul>
+  </nav>
+  </div>
+
+  <div class="divBackground">
+<div class="paragraph" style="position: relative;left:25px;width: 700px">
+<br>
+  <h1>
+    Enter you zipcode to get the current weather report.
+  </h1>
+  
+  <input placeholder="Type your zipcode" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="5" id="zipcode">
+  <button type="submit" onclick="requestWeather()">submit</button>
+    
+
+
+  <div id="result"></div>
+</div>
+</div>
+<script>
+
+
+//if(zipcode.toString().length<5){
+//  result= "Invalid input";
+//  document.getElementById("result").innerHTML = result;
+//}
+
+
+
+function requestWeather(){
+	                    var zipcode=document.getElementById('zipcode').value;
+		
+		 				$.ajax({
+        					type: "GET",
+        					url: "http://api.openweathermap.org/data/2.5/weather?zip="+zipcode+",us&appid=ef44a6a10949370d3545d2fae34a78e4",
+        					contentType: "application/json; charset-utf-8",
+        					data: "{}",
+        					dataType: "jsonp",
+        					success: function(data){
+        					        	var result = "";
+                            var message = data.message;
+              							var position = data.name;
+              							var weather = data.weather[0].description;
+              							var temp_lo = data.main.temp_min-273.15;
+              							var temp_hi = data.main.temp_max-273.15;
+              							var humidity = data.main.humidity;
+              							    result = "Place: "+ position + "<br>" +"Weather: " +  weather + "<br>"+ "Lowest temperature: "+ temp_lo + "<br>"+ "Highest temperature:" + temp_hi + "<br>"+ " Humidity " + humidity;
+              								document.getElementById("result").innerHTML = result;
+                            
+        							},
+	        				error:function (xhr, ajaxOptions, thrownError){
+                          if(xhr.status==404) {
+                             alert(thrownError);
+                          }
+                      }
+		       
+		        			})
+        				}
+        
+        
+</script>
+</body>
+</html>
