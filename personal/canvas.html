@@ -12,6 +12,7 @@
   <script language="javascript" type="text/javascript" src="background.js"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
+
 	function draw(){
 	var ctx=document.getElementById('canvas').getContext('2d');
 	ctx.beginPath();
@@ -19,11 +20,13 @@
 	ctx.clip();
 
 	var img=new Image();
+	
 	img.onload=function(){
 		ctx.drawImage(img,0,0);
 	
 	}
 	img.src="http://wx4.sinaimg.cn/mw690/7509939bly1fir337y2pfj21kw2t51kz.jpg";
+	
 	}
 </script>
 	<title>poo</title>
@@ -36,7 +39,7 @@
   			<ul class="ulu">
 				    <li class="nav-item"><a href="index.html" ><b>About</b></a></li>
 				    <li class="nav-item"><a href="blog.html" ><b>Blog</b></a></li>
-				    <li class="nav-item"><a href="#" ><b>Contact</b></a></li>
+				   
 			  </ul>
 	</nav>
   </div>
@@ -46,26 +49,27 @@
 <canvas id="canvas" width="600" height="600"> </canvas>
 <div style="width:400px;height:50px;position:relative;left:50px;top:20px;">
 	<input placeholder="Put your url here" type="text" id="picUrl">
-  <button type="submit" onclick="">submit</button>
+	<button type="submit" id="urlBut">submit</button>
 
 </div>
 	<div style="width:270px;height:250px;display:inline-block;margin:0;position:relative;left:50px;">
 		<h1>
 		choose size
 		</h1>
-		<input type="radio" name="rocsize" value="0"/>small<br />
-		<input type="radio" name="rocsize" value="1"/>small<br />
-		<input type="radio" name="rocsize" value="2"/>small<br />
+		<input type="radio" name="rocsize" value="0" checked="checked"/>small<br />
+		<input type="radio" name="rocsize" value="1" />middle<br />
+		<input type="radio" name="rocsize" value="2"/>large<br />
 		<h2>
 		choose element
 		</h2>
-		<input type="radio" name="element" value="0"/>small<br />
+		<input type="radio" name="element" value="0" checked="checked"/>smile<br />
+		<input type="radio" name="element" value="1" />cry<br />
+		<br>
 	</div>
 </body>
 <script type="text/javascript">
-	function submittbut(){
+	
 		
-	}
 	$('#canvas').click(function (e) {
 		var ctx=document.getElementById('canvas').getContext('2d');
 		var img=new Image();
@@ -82,36 +86,30 @@
 			if (element==0){
 				switch(size){
 					case '0':
-						ctx.drawImage(img,0,0,252,252,mouseX-15,mouseY-10,126,126);
+						ctx.drawImage(img,0,0,250,200,mouseX,mouseY,50,40);
 						break;
 					case '1':
-						ctx.drawImage(img,0,0,60,43,mouseX-30,mouseY-21,60,43);
+						ctx.drawImage(img,0,0,250,200,mouseX,mouseY,100,80);
 						break;
 					case '2':
-						ctx.drawImage(img,0,0,60,43,mouseX-60,mouseY-42,120,86);
+						ctx.drawImage(img,0,0,250,200,mouseX,mouseY,200,160);
 						break;
-					default:
-
-						ctx.drawImage(img,0,0,60,43,mouseX-30,mouseY-21,60,43);
-						break;
+					
 
 				}
 			}
 			else{
 				switch(size){
 					case '0':
-						ctx.drawImage(img,60,0,60,43,mouseX-150,mouseY-100,30,21);
+						ctx.drawImage(img,560,480,260,200,mouseX,mouseY,50,40);
 						break;
 					case '1':
-						ctx.drawImage(img,60,0,60,43,mouseX-30,mouseY-21,60,43);
+						ctx.drawImage(img,560,480,260,200,mouseX,mouseY,100,80);
 						break;
 					case '2':
-						ctx.drawImage(img,60,0,60,43,mouseX-60,mouseY-42,120,86);
+						ctx.drawImage(img,560,480,260,200,mouseX,mouseY,200,160);
 						break;
-					default:
-
-						ctx.drawImage(img,0,0,60,43,mouseX-30,mouseY-21,60,43);
-						break;
+					
 
 				}
 			}
