@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>personal</title>
+
+  
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Scope One' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Shanti' rel='stylesheet'>
+
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script language="javascript" type="text/javascript" src="background.js"></script>
+
+</head>
+
+<body>
+<input type="text" id="searchKey">
+<button type="submit" onclick="requestWiki()">submit</button>
+<div id="result">
+</div>
+
+<script type="text/javascript">
+function requestWiki(){
+	          var searchKey=document.getElementById('searchKey').value;
+		
+		 				$.ajax({
+                  type: "GET",
+                  url: "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch="+searchKey+"&callback=JSON_CALLBACK",
+                  contentType: "application/json; charset-utf-8",
+                  data: "{}",
+                  dataType: "jsonp",
+                  success: function(data){
+                            var result = [];
+                      
+                            var returned = data.query.pages;
+                            
+                            Object.keys(returned).forEach(function(key) {
+                               var resultPageId=returned[key].pageid;
+                               var resultTitle=returned[key].title;
+                               
+                               result.push([resultTitle,resultPageId]);
+                            });
+                            var textt="";
+                            for (var xx in result){
+                              textt = result[xx][0]+result[xx][1] +"<br>";
+                              console.log(textt);
+                              document.getElementById("result").innerHTML = textt;
+                            }
+                            
+
+                            console.log(result);
+                      },
+                  error:function (xhr, ajaxOptions, thrownError){
+                          if(xhr.status==404) {
+                             alert(thrownError);
+                          }
+                      }
+           
+                  })
+        				}
+</script>
+</body>
+</html>
