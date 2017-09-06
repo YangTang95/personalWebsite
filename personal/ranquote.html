@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>personal</title>
+
+  
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Scope One' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Shanti' rel='stylesheet'>
+
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script language="javascript" type="text/javascript" src="background.js"></script>
+
+</head>
+
+<body>
+
+<button type="submit" onclick="getQuote()">Another!!!</button>
+<div id="result">
+</div>
+
+<script type="text/javascript">
+
+function getQuote(){
+
+ $.ajax( {
+      url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
+      success: function(data) {
+        var post = data.shift(); // The data is an array of posts. Grab the first one.
+        
+        
+        $("body").append(post.content + "<p>— " + post.title + "</p>")
+        // If the Source is available, use it. Otherwise hide it.
+        
+      },
+      cache: false
+    });
+
+}
+
+
+     
+
+</script>
+</body>
+</html>
