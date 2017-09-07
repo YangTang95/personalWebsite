@@ -18,9 +18,24 @@
 </head>
 
 <body>
+<div id=slider></div>
+  <title>Yang Tang</title>
+  <div class="header-margin">
+  <nav>
+        <ul class="ulu">
+            <li class="nav-item"><a href="index.html" ><b>About</b></a></li>
+            <li class="nav-item"><a href="blog.html" ><b>Project</b></a></li>
+            
+        </ul>
+  </nav>
+  </div>
+<div class="divBackground" style="padding:50px;font-family:'Scope One';">
+<div>
+<h1>Type the key word you want to search</h1>
 <input type="text" id="searchKey">
-<button type="submit" onclick="requestWiki()">submit</button>
-<div id="result">
+<button type="submit" onclick="requestWiki()" style="color:black;background-color:white;border:2px;border-radius: 12px;font-size: 20px; position:relative;">submit</button>
+</div>
+<div id="result"></div>
 </div>
 
 <script type="text/javascript">
@@ -37,22 +52,25 @@ function requestWiki(){
                             var result = [];
                       
                             var returned = data.query.pages;
-                            
+                               
                             Object.keys(returned).forEach(function(key) {
                                var resultPageId=returned[key].pageid;
                                var resultTitle=returned[key].title;
+                               var resultExtract=returned[key].extract;
                                
-                               result.push([resultTitle,resultPageId]);
+                               result.push([resultTitle,resultPageId,resultExtract]);
                             });
                             var textt="";
+
+                           
                             for (var xx in result){
-                              textt = result[xx][0]+result[xx][1] +"<br>";
-                              console.log(textt);
-                              document.getElementById("result").innerHTML = textt;
-                            }
+                              textt="<div><a href=https://en.wikipedia.org/?curid="+result[xx][1]+"><b>"+result[xx][0]+"</b></a><p>"+result[xx][2]+"</p></div><br>";
+                          
+                              document.getElementById('result').innerHTML += textt;
+                          }
                             
 
-                            console.log(result);
+                            
                       },
                   error:function (xhr, ajaxOptions, thrownError){
                           if(xhr.status==404) {
