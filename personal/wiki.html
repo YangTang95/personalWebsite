@@ -41,7 +41,8 @@
 <script type="text/javascript">
 function requestWiki(){
 	          var searchKey=document.getElementById('searchKey').value;
-		
+		        document.getElementById("result").innerHTML = "";
+
 		 				$.ajax({
                   type: "GET",
                   url: "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch="+searchKey+"&callback=JSON_CALLBACK",
