@@ -37,8 +37,7 @@
                                                                       
                                                                     .Row{
                                                                       display: table;
-                                                                      width:auto; 
-                                                                      height:20px;
+                                                                      
                                                                            
                                                                     }
                                                                     .Column:hover{
@@ -47,10 +46,7 @@
                                                                     
                                                                     .Column{
                                                                       display: table-cell;
-                                                                      width:auto; 
-                                                                      height:10px;   
-                                                                      background-color: white;
-                                                                      border:5px solid white;
+                                                                      
                                                                     }    
                                                                     </style>
 
@@ -75,11 +71,11 @@
 Twitch Status
 </p>
       <div class="Row" id="all" style="font-size:20px">
-      <div class="Column" id="all"><button style="color:black;background-color:white;border:2px;border-radius: 12px;"><b>All</b></button></div>
+      <div class="Column" id="all"><button id="allBtn" style="color:black;background-color:white;border:2px;border-radius: 12px;"><b>All</b></button></div>
    
-      <div class="Column" id="online"><button style="color:#3b73b1;background-color:white;border:2px;border-radius: 12px;"><b>Online</b></button></div>
+      <div class="Column" id="online"><button id="onlineBtn" style="color:#3b73b1;background-color:white;border:2px;border-radius: 12px;"><b>Online</b></button></div>
       
-      <div class="Column" id="offline"><button style="color:#005960;background-color:white;border:2px;border-radius: 12px;"><b>Offline</b></button></div>
+      <div class="Column" id="offline"><button id="offlineBtn" style="color:#005960;background-color:white;border:2px;border-radius: 12px;"><b>Offline</b></button></div>
       </div> 
 
       
@@ -107,7 +103,7 @@ $( document ).ready( function getChannelInfo() {
       
        var twitchDiscription=data.status;
        console.log(channels[i]);
-       document.getElementById("result").innerHTML +="<div class='showResultTrue' style='border:0px solid white;' id="+channels[i]+"><img src="+logoPicSrc+" height='50' width='50' class='logoImg'>"+"<a href="+twitchUrl+"><b>"+disName+"</b></a>"+"<p>"+twitchDiscription+"</p></div>"; 
+       document.getElementById("result").innerHTML +="<div class='showResultTrue online' style='border:0px solid white;' id="+channels[i]+"><img src="+logoPicSrc+" height='50' width='50' class='logoImg'>"+"<a href="+twitchUrl+"><b>"+disName+"</b></a>"+"<p>"+twitchDiscription+"</p></div>"; 
        
 
       $.ajax({
@@ -116,7 +112,8 @@ $( document ).ready( function getChannelInfo() {
       success: function(data2) {
               console.log(data2);
               if (data2.stream==null){
-                document.getElementById(channels[i]).className ="showResultFalse";//hui de
+                document.getElementById(channels[i]).className ="showResultFalse offline";//hui de
+
                 console.log("its off")
               }
             },
@@ -141,8 +138,18 @@ $( document ).ready( function getChannelInfo() {
 
 }
 })
-
-
+$("#onlineBtn").click(function(){
+  $('.offline').hide();
+  $('.online').show();
+  });
+$("#offlineBtn").click(function(){
+  $('.online').hide();
+  $('.offline').show();
+  });
+$("#allBtn").click(function(){
+  $('.online').show();
+  $('.offline').show();
+  });
 </script>
 </body>
 </html>
