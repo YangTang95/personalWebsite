@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>personal</title>
+
+  
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link href='https://fonts.googleapis.com/css?family=Scope One' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Shanti' rel='stylesheet'>
+
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script language="javascript" type="text/javascript" src="background.js"></script>
+<style media="screen" type="text/css">
+
+                                                                    .showResultTrue{
+                                                                      background-color:#3b73b1;
+                                                                    }
+
+                                                                    .showResultFalse{
+                                                                      background-color:#005960;
+                                                                    }
+                                                                    .logoImg{
+                                                                      
+                                                                      border-radius: 50%;
+                                                                      background-color:white;
+                                                                      border: 1px solid white;
+                                                                      float: left;
+                                                                      margin: 5px 5px 5px 0px;
+                                                                    }
+                                                                     
+                                                                      
+                                                         
+                                                                      
+                                                                    .Row{
+                                                                      display: table;
+                                                                      width:auto; 
+                                                                      height:20px;
+                                                                           
+                                                                    }
+                                                                    .Column:hover{
+                                                                      font-size: 150%;
+                                                                    }
+                                                                    
+                                                                    .Column{
+                                                                      display: table-cell;
+                                                                      width:auto; 
+                                                                      height:10px;   
+                                                                      background-color: white;
+                                                                      border:5px solid white;
+                                                                    }    
+                                                                    </style>
+
+                                                                    
+</head>
+
+<body>
+
+<div id=slider></div>
+  <title>Yang Tang</title>
+  <div class="header-margin">
+  <nav>
+        <ul class="ulu">
+            <li class="nav-item"><a href="index.html" ><b>About</b></a></li>
+            <li class="nav-item"><a href="blog.html" ><b>Project</b></a></li>
+            
+        </ul>
+  </nav>
+  </div>
+<div class="divBackground" style="padding:50px;font-family:'Scope One';">
+<p style="font-size:60px">
+Twitch Status
+</p>
+      <div class="Row" id="all" style="font-size:20px">
+      <div class="Column" id="all"><button style="color:black;background-color:white;border:2px;border-radius: 12px;"><b>All</b></button></div>
+   
+      <div class="Column" id="online"><button style="color:#3b73b1;background-color:white;border:2px;border-radius: 12px;"><b>Online</b></button></div>
+      
+      <div class="Column" id="offline"><button style="color:#005960;background-color:white;border:2px;border-radius: 12px;"><b>Offline</b></button></div>
+      </div> 
+
+      
+<div id="result" class="quote-text" style="color:black;font-size:20px;">
+</div>
+</div>
+<script type="text/javascript">
+
+ var channels = ["monstercat","shiki_official","ESL_SC2","shroud","savjz","FreeCodeCamp"];
+ var i=0;
+$( document ).ready( function getChannelInfo() {
+ 
+
+  for (i=0;i<channels.length;i++) {
+ 
+    $.ajax({
+      url: 'https://wind-bow.glitch.me/twitch-api/channels/'+ channels[i],
+      async: false,
+      success: function(data) {
+      
+       
+       var disName=data.display_name;
+       var logoPicSrc=data.logo;
+       var twitchUrl=data.url;
+      
+       var twitchDiscription=data.status;
+       console.log(channels[i]);
+       document.getElementById("result").innerHTML +="<div class='showResultTrue' style='border:0px solid white;' id="+channels[i]+"><img src="+logoPicSrc+" height='50' width='50' class='logoImg'>"+"<a href="+twitchUrl+"><b>"+disName+"</b></a>"+"<p>"+twitchDiscription+"</p></div>"; 
+       
+
+      $.ajax({
+      url: 'https://wind-bow.glitch.me/twitch-api/streams/'+ channels[i],
+      async: false,
+      success: function(data2) {
+              console.log(data2);
+              if (data2.stream==null){
+                document.getElementById(channels[i]).className ="showResultFalse";//hui de
+                console.log("its off")
+              }
+            },
+          cache: false
+            });  
+        $(".quote-text").animate({
+          opacity: 0,
+          
+        }, 100,
+        function() {
+          $(this).animate({
+            opacity: 1,
+        
+          }, 500);
+          
+        });
+      
+
+     },
+      cache: false
+    });
+
+}
+})
+
+
+</script>
+</body>
+</html>
